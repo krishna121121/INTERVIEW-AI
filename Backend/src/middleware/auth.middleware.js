@@ -1,10 +1,16 @@
 const jwt=require("jsonwebtoken");
-
-function authUser(req,res,next){
+const tokenBlaklistModel=require('../models/blacklist.model');
+async function authUser(req,res,next){
     const token=req.cookies.token;
     if(!token){
         return res.status(401).json({
             message:"token not provided"
+        })
+    }
+    const isblacklist=await tokenBlaklistModel.findOne({token});
+    if(isblacklist){
+        return res.status(401).json({
+            message:"invalid token"
         })
     }
     try{
@@ -16,10 +22,6 @@ function authUser(req,res,next){
         return res.status(401).json({
             message:"Invalid token"
         })
-    }
-
-
-    
+    }  
 }
-
 module.exports={authUser};
