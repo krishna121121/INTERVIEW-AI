@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNavigate } from "react-router";
 import { Link } from 'react-router'
 
 const Login = () => {
+  const navigate = useNavigate();
   return (
+
     <div
       style={{
         display: 'flex',
@@ -36,7 +39,7 @@ const Login = () => {
           required
         />
 
-        <button type="submit">
+        <button type="submit" onClick={()=>navigate("/home")}>
           Login
         </button>
 
