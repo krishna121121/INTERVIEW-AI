@@ -1,22 +1,31 @@
-import React, { useState, useRef,useContext } from 'react'
+import React, { useState, useRef,useContext,useEffect } from 'react'
 import "../style/home.scss"
 import { useInterview } from '../hook/useInterview.js'
 import { useNavigate } from 'react-router'
 import {AuthContext} from "../../auth/auth.context.jsx"
+import { logout } from "../../auth/Services/auth.api.jsx";
+import { getAllInterviewReports } from '../services/Interview.ai.js'
+import ReportCard from './ReportCard.jsx'
 
 const Home = () => {
 
     const [showProfile, setShowProfile] = useState(false);
 
+
     const context = useContext(AuthContext)
 
     const {user}=context;
-    console.log(user);
-    const { loading, generateReport,reports } = useInterview()
+    const { loading, generateReport,reports ,setReports,getReports} = useInterview()
     const [ jobDescription, setJobDescription ] = useState("")
     const [ selfDescription, setSelfDescription ] = useState("")
     const [resumeFile, setResumeFile] = useState(null);
     const resumeInputRef = useRef()
+    useEffect(() => {
+        
+        getReports();
+        
+
+    }, []);
 
     const navigate = useNavigate()
 
@@ -50,18 +59,36 @@ const Home = () => {
 
                 <div className="profile-item">
                     <span>ID</span>
-                    <p>{user?._id}</p>
+                    <p>{user?.id}</p>
                 </div>
 
                 <div className="profile-item">
                     <span>Name</span>
-                    <p>{user?.name}</p>
+                    <p>{user?.username}</p>
                 </div>
 
                 <div className="profile-item">
                     <span>Email</span>
                     <p>{user?.email}</p>
                 </div>
+                <button
+                  className="logout-btn"
+                  style={{
+                    backgroundColor: "#ff4d4f",
+                    color: "white",
+                    padding: "5px 8px",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontSize: "16px"
+                  }}
+                  onClick={async (e)=>{
+                    await logout();
+                    navigate("/login");
+                  }}
+                >
+                  Logout
+                </button>
             </div>
             )}
         </div>
@@ -186,11 +213,10 @@ const Home = () => {
                     <h2>My Recent Interview Plans</h2>
                     <ul className='reports-list'>
                         {reports.map(report => (
-                            <li key={report._id} className='report-item' onClick={() => navigate(`/interview/${report._id}`)}>
-                                <h3>{report.title || 'Untitled Position'}</h3>
-                                <p className='report-meta'>Generated on {new Date(report.createdAt).toLocaleDateString()}</p>
-                                <p className={`match-score ${report.matchScore >= 80 ? 'score--high' : report.matchScore >= 60 ? 'score--mid' : 'score--low'}`}>Match Score: {report.matchScore}%</p>
-                            </li>
+                             <ReportCard
+                             key={report._id}
+                             report={report}
+                         />
                         ))}
                     </ul>
                 </section>

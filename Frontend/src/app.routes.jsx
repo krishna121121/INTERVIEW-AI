@@ -13,13 +13,14 @@ export const router=createBrowserRouter([
         path:"/register",
         element:<Register />
     },
+    
     {
         path:"/",
         element:<Protected>
                 <Home /> 
             </Protected>
     },{
-        path:"/interview/:InterviewId",
+        path:"/interview/:interviewId",
         element:<Protected>
             <InterviewPlan />
         </Protected>

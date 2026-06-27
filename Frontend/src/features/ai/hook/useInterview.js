@@ -1,4 +1,4 @@
-import {generateInterviewReport, getInterviewReportById} from "../services/Interview.ai"
+import {generateInterviewReport, getInterviewReportById,getAllInterviewReports} from "../services/Interview.ai"
 import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
@@ -44,9 +44,22 @@ export const useInterview = () => {
         return response?.interviewReport;
     }
 
+    const getReports = async () => {
+        setLoading(true);
+      
+        try {
+          const response = await getAllInterviewReports();
+          setReports(response.interviewReports);
+          console.log(response);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
 
 
-    return { loading, report, reports, generateReport, getReportById}
+    return { loading, report, reports, setReports,generateReport, getReportById,getReports}
 
 }

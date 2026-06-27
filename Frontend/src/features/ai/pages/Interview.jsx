@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import "../style/interview.scss";
 import { useInterview } from "../hook/useInterview";
-import { useParams } from "react-router";
+import { Navigate, useNavigate, useParams } from "react-router";
+import {AuthContext} from "../../auth/auth.context.jsx"
+import { logout } from "../../auth/Services/auth.api.jsx";
 
 const NAV_ITEMS = [
   {
@@ -39,6 +41,7 @@ const QuestionCard = ({ item, index }) => {
 
   return (
     <div className="q-card">
+      
       <div className="q-card__header" onClick={() => setOpen(!open)}>
         <span className="q-card__index">Q{index + 1}</span>
 
@@ -97,12 +100,17 @@ const Interview = () => {
   const { report, getReportById, loading, getResumePdf } = useInterview();
 
   const { interviewId } = useParams();
+  const context = useContext(AuthContext)
+
+    const {user}=context;
+    const [showProfile, setShowProfile] = useState(false);
+    const navigate=useNavigate();
 
   useEffect(() => {
     if (interviewId) {
       getReportById(interviewId);
     }
-  }, [interviewId, getReportById]);
+  }, [interviewId]);
 
   if (loading || !report) {
     return (
@@ -121,6 +129,53 @@ const Interview = () => {
 
   return (
     <div className="interview-page">
+      <div className="profile-container">
+        <div
+            className="profile"
+            onClick={() => setShowProfile(!showProfile)}
+        >
+            {(user?.name || user?.email)?.charAt(0).toUpperCase()}
+        </div>
+
+        {showProfile && (
+            <div className="profile-card">
+                <h3>User Profile</h3>
+
+                <div className="profile-item">
+                    <span>ID</span>
+                    <p>{user?.id}</p>
+                </div>
+
+                <div className="profile-item">
+                    <span>Name</span>
+                    <p>{user?.username}</p>
+                </div>
+
+                <div className="profile-item">
+                    <span>Email</span>
+                    <p>{user?.email}</p>
+                </div>
+                <button
+                  className="logout-btn"
+                  style={{
+                    backgroundColor: "#ff4d4f",
+                    color: "white",
+                    padding: "5px 8px",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontSize: "16px"
+                  }}
+                  onClick={async (e)=>{
+                    await logout();
+                    navigate("/login");
+                  }}
+                >
+                  Logout
+                </button>
+            </div>
+            )}
+        </div>
       <div className="interview-layout">
 
       <nav className="interview-nav">

@@ -5,10 +5,10 @@ $bg-panel:       #1c2230;
 $bg-input:       #1e2535;
 $border-color:   #2a3348;
 $text-primary:   #e6edf3;
-$text-muted:     #7d8590;
+$text-muted:     #7d9080;
 $accent:         #ff2d78;
 $accent-alt:     #ff6b9d;
-$badge-required: #ff2d78;
+$badge-required: #7a2dff;
 $badge-best:     #ff2d78;
 $info-bg:        #1b2a4a;
 $info-border:    #2d4a7a;
@@ -71,7 +71,8 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     }
 
     .highlight {
-        color: $accent;
+        color: rgb(180, 164, 197);
+        text-decoration: underline;
     }
 }
 
@@ -424,7 +425,7 @@ $font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
     top:60px;
     right:0;
     width:280px;
-    background:white;
+    background:rgb(24, 24, 24);
     border-radius:15px;
     padding:18px;
     box-shadow:0 10px 30px rgba(0,0,0,.2);

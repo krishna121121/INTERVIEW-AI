@@ -56,7 +56,28 @@ async function getInterviewReportByIdController(req, res) {
 
 }
 
+async function getAllInterviewReportsController(req, res) {
+    try {
+        const interviewReports = await interviewReportModel
+            .find({
+                user: req.user.id
+            })
+            .sort({ createdAt: -1 }); // newest first
+
+        res.status(200).json({
+            message: "Interview reports fetched successfully.",
+            interviewReports
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
 
 
 
-module.exports={generateInterViewReportController,getInterviewReportByIdController};
+
+
+module.exports={generateInterViewReportController,getInterviewReportByIdController,getAllInterviewReportsController};
