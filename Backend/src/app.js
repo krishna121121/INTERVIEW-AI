@@ -11,7 +11,7 @@ app.use(cors({
         "http://localhost:5173",
         "https://interview-eubzhe3gt-krishna121121s-projects.vercel.app",
         "https://interview-ai-git-master-krishna121121s-projects.vercel.app",
-        "https://interview-ai-jet-omega.vercel.app/"
+        "https://interview-ai-jet-omega.vercel.app"
     ],
     credentials: true,
 }));
