@@ -3,7 +3,7 @@ import axious from "axios";
 export async function Register({username,email,password}){
     try{
 
-        const response= await axious.post('http://localhost:3000/api/auth/register',{
+        const response= await axious.post('https://interview-ai-xo9l.onrender.com/api/auth/register',{
             username,email,password
         },{
             withCredentials:true
@@ -19,7 +19,7 @@ export async function Register({username,email,password}){
 export async function login({email,password}){
     try{
         const response=await axious.post(
-            'http://localhost:3000/api/auth/login',
+            'https://interview-ai-xo9l.onrender.com/api/auth/login',
             {email,password},
             {
             withCredentials:true
@@ -36,7 +36,7 @@ export async function login({email,password}){
 export async function logout(){
     try{
 
-        const response=await axious.get('http://localhost:3000/api/auth/logout',{
+        const response=await axious.get('https://interview-ai-xo9l.onrender.com/api/auth/logout',{
             withCredentials:true
         })
         return response.data;
@@ -47,7 +47,7 @@ export async function logout(){
 
 export async function getMe(){
     try{
-        const response=await axious.get('http://localhost:3000/api/auth/get-me',{
+        const response=await axious.get('https://interview-ai-xo9l.onrender.com/api/auth/get-me',{
             withCredentials:true
         })
         return response.data;
