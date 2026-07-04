@@ -7,8 +7,11 @@ const interviewRouter = require('./routes/interview.routes');
 
 
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
+    origin: [
+        "http://localhost:5173",
+        "https://interview-eubzhe3gt-krishna121121s-projects.vercel.app"
+    ],
+    credentials: true,
 }));
 
 
