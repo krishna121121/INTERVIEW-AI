@@ -33,7 +33,11 @@ async function registerUserController(req,res){
 
     )
 
-    res.cookie("token",token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+});
 
     res.status(201).json({
         message:"user registered successfully",
