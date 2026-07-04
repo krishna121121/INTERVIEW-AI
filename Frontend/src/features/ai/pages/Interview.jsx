@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect ,useContext} from "react";
-import "../style/interview.scss";
+import "../style/Interview.scss";
 import { useInterview } from "../hook/useInterview";
 import { Navigate, useNavigate, useParams } from "react-router";
 import {AuthContext} from "../../auth/auth.context.jsx"
