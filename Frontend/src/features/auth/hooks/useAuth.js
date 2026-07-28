@@ -8,49 +8,37 @@ export const useAuth=()=>{
     const context=useContext(AuthContext);
     const {user,setUser,loading,setLoading}=context;
 
-    const handleLogin= async ({email,password})=>{
-        setLoading(true);
-        try{
+    // NOTE: handleLogin and handleRegister do NOT touch the shared `loading`
+    // state anymore. That state is ONLY for the initial getMe() auth check.
+    // Login/Register pages manage their own local isSubmitting state.
 
+    const handleLogin= async ({email,password})=>{
+        try{
             const data=await login({email,password});
             setUser(data.user);
         }
         catch(err){
             throw err;
-        } finally{
-
-            setLoading(false);
         }
     }
 
     
     const handleRegister= async ({username,email,password})=>{
-        setLoading(true);
         try{
-
             const data=await Register({username,email,password});
             setUser(data.user);
         }catch(err){
             throw err;
         }
-        finally{
-
-            setLoading(false);
-        }
     }
     
 
     const handleLogout=async ()=>{
-        setLoading(true);
         try{
-            
-            const data=await logout();
+            await logout();
             setUser(null);
         }catch(err){
             throw err;
-        }finally{
-
-            setLoading(false);
         }
     }
 

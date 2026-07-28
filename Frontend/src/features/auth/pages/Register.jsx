@@ -1,31 +1,36 @@
-import React,{useState} from 'react'
-import { Link } from 'react-router'
+import React, { useState } from 'react'
+import { Link } from 'react-router';
 import { useNavigate } from "react-router";
 import "./Register.scss";
 import { useAuth } from '../hooks/useAuth';
 
-
 const Register = () => {
-
   const navigate = useNavigate();
-  const [username,setUserName]=useState("");
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
-  const {loading ,handleRegister}=useAuth();
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit=async (e)=>{
+  const { handleRegister } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      
-      await handleRegister({username,email,password});
+    setError("");
+    setIsSubmitting(true);
+    try {
+      await handleRegister({ username, email, password });
       navigate("/");
-
-    }catch(err){
-      
-      console.log(err);
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Registration failed. Please try again.";
+      setError(msg);
+    } finally {
+      setIsSubmitting(false);
     }
   }
-
 
   return (
     <div
@@ -36,18 +41,31 @@ const Register = () => {
         minHeight: '100vh'
       }}
     >
-      <form
-        id="registerForm"
-        onSubmit={handleSubmit}
-      >
+      <form id="registerForm" onSubmit={handleSubmit}>
         <h2>Register</h2>
+
+        {error && (
+          <div style={{
+            background: 'rgba(239,68,68,0.1)',
+            border: '1px solid rgba(239,68,68,0.4)',
+            color: '#f87171',
+            borderRadius: '10px',
+            padding: '10px 14px',
+            fontSize: '14px',
+            marginBottom: '12px',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
 
         <input
           type="text"
           name="username"
           placeholder="Username"
           required
-          onChange={(e)=>{setUserName(e.target.value)}}
+          disabled={isSubmitting}
+          onChange={(e) => { setUserName(e.target.value) }}
         />
 
         <input
@@ -55,7 +73,8 @@ const Register = () => {
           name="email"
           placeholder="Email"
           required
-          onChange={(e)=>{setEmail(e.target.value)}}
+          disabled={isSubmitting}
+          onChange={(e) => { setEmail(e.target.value) }}
         />
 
         <input
@@ -63,11 +82,12 @@ const Register = () => {
           name="password"
           placeholder="Password"
           required
-          onChange={(e)=>{setPassword(e.target.value)}}
+          disabled={isSubmitting}
+          onChange={(e) => { setPassword(e.target.value) }}
         />
 
-        <button type="submit">
-          Register
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Creating account..." : "Register"}
         </button>
 
         <p>

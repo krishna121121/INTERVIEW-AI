@@ -1,30 +1,36 @@
 import React, { useState } from 'react'
-import { useNavigate ,Link} from "react-router";
-
+import { useNavigate, Link } from "react-router";
 import { useAuth } from '../hooks/useAuth';
 import "./Login.scss";
 
 const Login = () => {
-
-const {loading ,handleLogin}=useAuth();
-const [email,setEmail]=useState("");
-const [password,setPassword]=useState("");
+  const { handleLogin } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const handleSubmit=async (e)=>{
-    e.preventDefault();
-    try{
 
-      await handleLogin({email,password});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+    try {
+      await handleLogin({ email, password });
       navigate("/");
-    }catch(err){
-      console.log(err);
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Login failed. Please check your credentials.";
+      setError(msg);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
-
   return (
-
     <div
       style={{
         display: 'flex',
@@ -33,10 +39,23 @@ const [password,setPassword]=useState("");
         minHeight: '100vh'
       }}
     >
-      <form
-        id='f123' onSubmit={handleSubmit}
-      >
+      <form id='f123' onSubmit={handleSubmit}>
         <h2>Login</h2>
+
+        {error && (
+          <div style={{
+            background: 'rgba(239,68,68,0.1)',
+            border: '1px solid rgba(239,68,68,0.4)',
+            color: '#f87171',
+            borderRadius: '10px',
+            padding: '10px 14px',
+            fontSize: '14px',
+            marginBottom: '12px',
+            textAlign: 'center'
+          }}>
+            {error}
+          </div>
+        )}
 
         <input
           id="email"
@@ -45,6 +64,7 @@ const [password,setPassword]=useState("");
           autoComplete="email"
           placeholder="Email"
           required
+          disabled={isSubmitting}
           onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -55,11 +75,12 @@ const [password,setPassword]=useState("");
           autoComplete="current-password"
           placeholder="Password"
           required
+          disabled={isSubmitting}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button type="submit" >
-          Login
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Signing in..." : "Login"}
         </button>
 
         <p>

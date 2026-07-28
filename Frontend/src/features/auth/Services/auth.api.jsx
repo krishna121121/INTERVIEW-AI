@@ -12,6 +12,7 @@ export async function Register({username,email,password}){
     }
     catch(err){
         console.log(err);
+        throw err; // re-throw so caller can show error to user
     }
     
 } 
