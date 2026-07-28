@@ -64,7 +64,7 @@ Exact structure required:
 
     try {
         const response = await ai.models.generateContent({
-            model: "gemini-3.5-flash",
+            model: "gemini-1.5-flash",
             contents: [{
                 role: "user",
                 parts: [{ text: prompt }]
