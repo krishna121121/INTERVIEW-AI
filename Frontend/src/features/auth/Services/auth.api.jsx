@@ -47,12 +47,17 @@ export async function logout(){
 
 export async function getMe(){
     try{
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout for Render cold starts
         const response=await axious.get('https://interview-ai-xo9l.onrender.com/api/auth/get-me',{
-            withCredentials:true
+            withCredentials:true,
+            signal: controller.signal
         })
+        clearTimeout(timeoutId);
         return response.data;
     }
     catch(err){
         console.log(err);
+        throw err; // re-throw so auth context can properly set loading=false
     }
 }

@@ -116,7 +116,18 @@ const Interview = () => {
   if (loading || !report) {
     return (
       <main className="loading-screen">
-        <h1>Loading your interview plan...</h1>
+        <div className="loading-content">
+          <div className="loading-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" />
+            </svg>
+          </div>
+          <h1>Loading your Interview Plan</h1>
+          <p>Fetching your personalized questions and roadmap...</p>
+          <div className="loading-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
       </main>
     );
   }

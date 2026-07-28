@@ -1,0 +1,109 @@
+/* ─── Splash / Loading Screen ─────────────────────────────────── */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  z-index: 9999;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: splashFadeIn 0.5s ease forwards;
+}
+
+@keyframes splashFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo Icon */
+.splash-logo {
+  color: #818cf8;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(129, 140, 248, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(129, 140, 248, 0.3); }
+  50%       { box-shadow: 0 0 0 12px rgba(129, 140, 248, 0); }
+}
+
+/* Title */
+.splash-title {
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #f1f5f9;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.splash-title span {
+  color: #818cf8;
+}
+
+/* Subtitle */
+.splash-subtitle {
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Spinner */
+.splash-spinner {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin: 8px 0;
+}
+
+.spinner-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #818cf8;
+  animation: spinnerRotate 1s linear infinite;
+}
+
+.spinner-ring--delay {
+  inset: 6px;
+  border-top-color: #a5b4fc;
+  animation-duration: 1.5s;
+  animation-direction: reverse;
+}
+
+@keyframes spinnerRotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Hint text */
+.splash-hint {
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  color: #475569;
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  animation: hintFadeIn 1.5s ease 1s forwards;
+  opacity: 0;
+}
+
+@keyframes hintFadeIn {
+  to { opacity: 1; }
+}

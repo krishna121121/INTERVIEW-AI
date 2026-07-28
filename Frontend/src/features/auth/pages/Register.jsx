@@ -26,9 +26,7 @@ const Register = () => {
     }
   }
 
-  if(loading){
-    return (<main><h1>loading</h1></main>);
-  }
+
   return (
     <div
       style={{
