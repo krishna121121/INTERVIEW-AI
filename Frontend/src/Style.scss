@@ -1,17 +1,66 @@
+:root {
+    /* ── Dark Mode (Slate Gray & Red) ── */
+    --bg-primary: #1e2128;
+    --bg-secondary: #282c34;
+    --bg-tertiary: #323844;
+    --bg-accent-trans: rgba(220, 38, 38, 0.1);
+    --bg-accent-trans-hover: rgba(220, 38, 38, 0.2);
+    --bg-gradient-start: #1e2128;
+    --bg-gradient-mid: #232730;
+
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --text-accent: #ef4444; /* Brighter Red for better contrast on gray */
+
+    --border-color: rgba(255, 255, 255, 0.1);
+    --border-color-hover: rgba(255, 255, 255, 0.2);
+    --border-accent: rgba(239, 68, 68, 0.4);
+    --border-accent-hover: rgba(239, 68, 68, 0.7);
+
+    --hover-overlay: rgba(255, 255, 255, 0.06);
+    
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-glow: rgba(239, 68, 68, 0.25);
+}
+
+[data-theme="light"] {
+    /* ── Light Mode (Clean White with Red Accents) ── */
+    --bg-primary: #fafafa;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f4f4f5;
+    --bg-accent-trans: rgba(185, 28, 28, 0.08);
+    --bg-accent-trans-hover: rgba(185, 28, 28, 0.15);
+    --bg-gradient-start: #fafafa;
+    --bg-gradient-mid: #f4f4f5;
+
+    --text-primary: #09090b; /* Very dark text for clarity */
+    --text-secondary: #3f3f46;
+    --text-muted: #71717a;
+    --text-accent: #b91c1c; /* Slightly darker red for light mode contrast */
+
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-color-hover: rgba(0, 0, 0, 0.2);
+    --border-accent: rgba(185, 28, 28, 0.25);
+    --border-accent-hover: rgba(185, 28, 28, 0.5);
+
+    --hover-overlay: rgba(0, 0, 0, 0.03);
+
+    --shadow-color: rgba(0, 0, 0, 0.06);
+    --shadow-glow: rgba(185, 28, 28, 0.15);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html,
-body,
-#root {
+html, body, #root {
     width: 100%;
     min-height: 100vh;
-    
-}
-
-body {
-    font-family: Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }

@@ -1,3 +1,91 @@
+/* ─── Global App Layout with Sidebar ──────────────────────────── */
+.app-layout-wrapper {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-primary);
+}
+
+.app-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  width: 100%;
+}
+
+.app-main-content.sidebar-open {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+}
+
+.page-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-x: hidden;
+}
+
+/* Header with toggle */
+.mobile-header {
+  display: flex;
+  height: 64px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 1rem;
+
+  .menu-toggle {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .mobile-logo {
+      color: var(--text-accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+  }
+}
+
+.app-main-content.sidebar-open .mobile-header {
+  display: none;
+}
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .app-main-content.sidebar-open {
+      margin-left: 0;
+      width: 100%;
+  }
+
+  .app-main-content.sidebar-open .mobile-header {
+      display: flex; 
+  }
+
+  .page-content {
+      padding: 1rem;
+  }
+
+  .app-main-content.sidebar-open .sidebar-overlay {
+      display: block;
+  }
+}
+
 /* ─── Splash / Loading Screen ─────────────────────────────────── */
 .splash-screen {
   position: fixed;

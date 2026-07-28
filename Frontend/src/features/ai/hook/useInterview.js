@@ -21,6 +21,8 @@ export const useInterview = () => {
         try {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
+            // Immediately add the new report to the sidebar list
+            setReports((prev) => [response.interviewReport, ...prev])
         } catch (error) {
             console.log(error)
         } finally {
